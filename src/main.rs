@@ -11,8 +11,8 @@ async fn hello_world() -> &'static str {
 #[shuttle_runtime::main]
 async fn axum() -> shuttle_axum::ShuttleAxum {
     let router = Router::new()
-        .route("/", get(hello_world));
-        // .route("/solve", post(solver::solve));
+        .route("/", get(hello_world))
+        .route("/solve", post(solver::solve));
 
     Ok(router.into())
 }

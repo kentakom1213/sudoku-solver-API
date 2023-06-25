@@ -1,6 +1,6 @@
-use axum::extract::Json;
 use super::field::Field;
 use super::sudoku::Sudoku;
+use axum::{http::StatusCode, response::IntoResponse, Json};
 
 const NULL: Field = Field {
     field: [
@@ -13,11 +13,11 @@ const NULL: Field = Field {
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ]
+    ],
 };
 
 /// ## solver
-pub async fn solve(Json(input): Json<Field>) -> Json<Field> {
+pub async fn solve(Json(input): Json<Field>) -> impl IntoResponse {
     // 入力の解析
     let mut sudoku = Sudoku {
         field: input,
@@ -29,8 +29,8 @@ pub async fn solve(Json(input): Json<Field>) -> Json<Field> {
 
     // 値を返す
     if let Some(res) = sudoku.answer {
-        Json(res)
+        (StatusCode::CREATED, Json(res))
     } else {
-        Json(NULL)
+        (StatusCode::CREATED, Json(NULL))
     }
 }
