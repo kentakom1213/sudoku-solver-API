@@ -1,4 +1,5 @@
 use axum::{routing::get, Router};
+use sudoku::solver::*;
 
 async fn hello_world() -> &'static str {
     "Hello, world!"
