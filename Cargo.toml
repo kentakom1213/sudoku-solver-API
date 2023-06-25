@@ -5,8 +5,10 @@ edition = "2021"
 
 [dependencies]
 axum = "0.6.18"
+<<<<<<< HEAD
 shuttle-axum = "0.19.0"
 shuttle-runtime = "0.19.0"
 tokio = "1.28.2"
 serde = "1.0.164"
 serde_json = "1.0.99"
+tracing-subscriber = { version = "0.3.17", features = ["env-filter"] }

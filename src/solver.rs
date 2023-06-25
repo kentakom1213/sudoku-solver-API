@@ -1,6 +1,10 @@
 use super::field::Field;
 use super::sudoku::Sudoku;
-use axum::{http::StatusCode, response::IntoResponse, Json};
+use axum::{
+    http::StatusCode,
+    response::IntoResponse,
+    Json,
+};
 
 const NULL: Field = Field {
     field: [
