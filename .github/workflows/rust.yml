@@ -16,8 +16,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
+#     - name: Build
+#       run: cargo build --verbose
+    - name: Install shuttle
+      run: cargo install cargo-shuttle
     - name: Run tests
       run: cargo test --verbose
     - name: Shuttle login
