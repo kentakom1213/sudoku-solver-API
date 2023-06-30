@@ -6,6 +6,39 @@ pub struct Sudoku {
 }
 
 impl Sudoku {
+    /// ## check
+    /// - 問題が適正であるかを判定する
+    pub fn check(&self) -> bool {
+        // 行の数字の個数
+        let mut cnt_row = vec![vec![0; 9]; 9];
+        // 列の数字の個数
+        let mut cnt_col = vec![vec![0; 9]; 9];
+        // ブロックの数字の個数
+        let mut cnt_block = vec![vec![0; 9]; 9];
+
+        // カウント
+        for i in 0..81 {
+            let (r, c) = (i / 9, i % 9);
+            let num = self.field.field[r][c] as usize; // セルの値
+            cnt_row[r][num] += 1;
+            cnt_col[c][num] += 1;
+            // ブロックの位置
+            let (br, bc) = (r / 3, c / 3);
+            let b = 3 * br + bc;
+            cnt_block[b][num] += 1;
+        }
+
+        // 重複がないかチェック
+        let has_no_duplicate = |array: Vec<Vec<usize>>| -> bool {
+            array
+                .iter()
+                .map(|vec| vec[1..].iter().all(|&val| val <= 1))
+                .all(|val| val)
+        };
+
+        has_no_duplicate(cnt_row) && has_no_duplicate(cnt_col) && has_no_duplicate(cnt_block)
+    }
+
     /// ## solve
     /// 数独の解を求める（`Sudoku::dfs`のwrapper）
     pub fn solve(&mut self) {

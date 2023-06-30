@@ -1,10 +1,6 @@
 use super::field::Field;
 use super::sudoku::Sudoku;
-use axum::{
-    http::StatusCode,
-    response::IntoResponse,
-    Json,
-};
+use axum::{http::StatusCode, response::IntoResponse, Json};
 
 const NULL: Field = Field {
     field: [
@@ -28,6 +24,11 @@ pub async fn solve(Json(input): Json<Field>) -> impl IntoResponse {
         answer: None,
     };
 
+    // 解の存在判定
+    if !sudoku.check() {
+        return (StatusCode::BAD_REQUEST, Json(NULL));
+    }
+
     // 解を求める
     sudoku.solve();
 
@@ -35,6 +36,6 @@ pub async fn solve(Json(input): Json<Field>) -> impl IntoResponse {
     if let Some(res) = sudoku.answer {
         (StatusCode::CREATED, Json(res))
     } else {
-        (StatusCode::CREATED, Json(NULL))
+        (StatusCode::BAD_REQUEST, Json(NULL))
     }
 }
