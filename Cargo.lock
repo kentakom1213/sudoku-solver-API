@@ -1572,6 +1572,7 @@ name = "sudoku"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "http",
  "serde",
  "serde_json",
  "shuttle-axum",

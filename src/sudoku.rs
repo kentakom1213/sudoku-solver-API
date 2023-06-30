@@ -10,11 +10,11 @@ impl Sudoku {
     /// - 問題が適正であるかを判定する
     pub fn check(&self) -> bool {
         // 行の数字の個数
-        let mut cnt_row = vec![vec![0; 9]; 9];
+        let mut cnt_row = vec![vec![0; 10]; 10];
         // 列の数字の個数
-        let mut cnt_col = vec![vec![0; 9]; 9];
+        let mut cnt_col = vec![vec![0; 10]; 10];
         // ブロックの数字の個数
-        let mut cnt_block = vec![vec![0; 9]; 9];
+        let mut cnt_block = vec![vec![0; 10]; 10];
 
         // カウント
         for i in 0..81 {
